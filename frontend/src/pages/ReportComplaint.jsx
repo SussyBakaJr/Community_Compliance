@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { analyzeComplaint } from "../services/api";
-
+import LocationPicker from "../components/LocationPicker";
 export default function ReportComplaint() {
 
     const [complaint, setComplaint] = useState("");
@@ -8,7 +8,7 @@ export default function ReportComplaint() {
     const [result, setResult] = useState(null);
     const [error, setError] = useState("");
     const [image, setImage] = useState(null);
-
+    const [location, setLocation] = useState(null);
     async function handleAnalyze() {
 
         if (!complaint.trim() && !image) {
@@ -22,7 +22,12 @@ export default function ReportComplaint() {
             setError("");
             setResult(null);
 
-            const response = await analyzeComplaint(complaint, image);
+            const response = await analyzeComplaint(
+    complaint,
+    image,
+    location
+);
+
 
             setResult(response);
 
@@ -80,6 +85,35 @@ export default function ReportComplaint() {
         onChange={(e) => setImage(e.target.files[0])}
         className="block w-full text-slate-300"
     />
+
+</div>
+<div className="mt-8">
+
+    <h3 className="text-xl font-semibold mb-4">
+
+        Select Complaint Location
+
+    </h3>
+
+    <LocationPicker
+        onLocationSelect={setLocation}
+    />
+
+    {location && (
+
+        <div className="mt-4 text-slate-300">
+
+            <p>
+                Latitude: {location.lat.toFixed(6)}
+            </p>
+
+            <p>
+                Longitude: {location.lng.toFixed(6)}
+            </p>
+
+        </div>
+
+    )}
 
 </div>
                 <button

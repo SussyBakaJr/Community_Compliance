@@ -37,7 +37,10 @@ def init_db():
 
         recommended_action TEXT,
 
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        status TEXT DEFAULT 'Pending',
+        latitude REAL,
+        longitude REAL
 
     )
     """)
@@ -55,6 +58,8 @@ def save_complaint(data):
                 complaint,
                 image_name,
                 category,
+                latitude,
+                longitude,
                 priority,
                 department,
                 summary,
@@ -62,12 +67,14 @@ def save_complaint(data):
                 estimated_response_time,
                 recommended_action
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
 
             data["complaint"],
             data["image_name"],
             data["category"],
+            data["latitude"],
+            data["longitude"],
             data["priority"],
             data["department"],
             data["summary"],

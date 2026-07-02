@@ -19,17 +19,12 @@ def home():
 
 
 @app.route("/analyze", methods=["POST"])
-@app.route("/complaints", methods=["GET"])
-def complaints():
 
-    return jsonify(get_all_complaints())
-@app.route("/dashboard", methods=["GET"])
-def dashboard():
-
-    return jsonify(get_dashboard_stats())
 def analyze():
 
     complaint = request.form.get("complaint", "")
+    latitude = request.form.get("latitude")
+    longitude = request.form.get("longitude")
 
     image = request.files.get("image")
 
@@ -41,9 +36,12 @@ def analyze():
         print("No image uploaded.")
 
     result = analyze_complaint(complaint, image)
+    print(result)
     save_complaint({
 
         "complaint": complaint,
+        "latitude": latitude,
+        "longitude": longitude,
         "image_name": image.filename if image else None,
         "category": result["category"],
         "priority": result["priority"],
@@ -56,7 +54,14 @@ def analyze():
 
     return jsonify(result)
 
+@app.route("/complaints", methods=["GET"])
+def complaints():
 
+    return jsonify(get_all_complaints())
+@app.route("/dashboard", methods=["GET"])
+def dashboard():
+
+    return jsonify(get_dashboard_stats())
 if __name__ == "__main__":
     init_db()
     app.run(debug=True)

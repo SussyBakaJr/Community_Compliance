@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
-
+import ComplaintHistory from "./pages/ComplaintHistory";
 import Home from "./pages/Home";
 import ReportComplaint from "./pages/ReportComplaint";
 import Dashboard from "./pages/Dashboard";
@@ -23,6 +23,7 @@ function App() {
 
         <Route path="/about" element={<About />} />
 
+        <Route path="/history" element={<ComplaintHistory />} />
       </Routes>
 
     </BrowserRouter>

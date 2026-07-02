@@ -1,10 +1,16 @@
 const API_URL = "http://127.0.0.1:5000";
 
-export async function analyzeComplaint(complaint, image) {
+export async function analyzeComplaint(
+    complaint,
+    image,
+    location
+) {
 
     const formData = new FormData();
 
     formData.append("complaint", complaint);
+    formData.append("latitude", location.lat);
+    formData.append("longitude", location.lng);
 
     if (image) {
         formData.append("image", image);

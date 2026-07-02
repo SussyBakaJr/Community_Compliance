@@ -46,7 +46,7 @@ export default function Dashboard() {
 
     return (
 
-        <main className="min-h-screen bg-slate-950 text-white">
+        <main className="min-h-screen bg-slate-950 text-white pt-15">
 
             <div className="flex">
 

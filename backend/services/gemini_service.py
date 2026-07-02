@@ -1,5 +1,6 @@
 import os
 import json
+from pydoc import text
 from dotenv import load_dotenv
 import google.generativeai as genai
 from PIL import Image
@@ -62,5 +63,8 @@ Return exactly this format:
 
     elif text.startswith("```"):
         text = text.replace("```", "").strip()
+
+    print("Gemini raw response:")
+    print(text)
 
     return json.loads(text)
