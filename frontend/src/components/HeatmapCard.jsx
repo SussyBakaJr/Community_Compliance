@@ -1,33 +1,87 @@
-import { Map } from "lucide-react";
+import { BarChart3 } from "lucide-react";
 
-export default function HeatmapCard() {
+export default function HeatmapCard({ dashboard }) {
+
+    const categories = dashboard.categories;
+
+    const maxCount = Math.max(
+        ...categories.map(category => category.count),
+        1
+    );
 
     return (
 
-        <div className="rounded-3xl bg-slate-900 border border-slate-800 h-[520px] relative overflow-hidden">
+        <div className="rounded-3xl bg-slate-900 border border-slate-800 p-8 h-[520px]">
 
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#334155_1px,transparent_1px)] bg-[length:22px_22px] opacity-30"></div>
+            <div className="flex items-center gap-3 mb-8">
 
-            <div className="absolute left-36 top-24 w-5 h-5 rounded-full bg-violet-400 shadow-[0_0_25px_#a855f7]"></div>
-
-            <div className="absolute right-32 bottom-24 w-5 h-5 rounded-full bg-red-400 shadow-[0_0_25px_#fb7185]"></div>
-
-            <div className="absolute left-1/2 top-1/2 w-5 h-5 rounded-full bg-emerald-400 shadow-[0_0_25px_#22c55e]"></div>
-
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-
-                <Map
-                    size={60}
+                <BarChart3
                     className="text-violet-400"
+                    size={28}
                 />
 
-                <h2 className="text-5xl font-bold mt-6">
+                <h2 className="text-3xl font-bold">
 
-                    Smart Community Heatmap
+                    Complaint Analytics
 
                 </h2>
 
             </div>
+
+            {categories.length === 0 ? (
+
+                <div className="flex items-center justify-center h-[380px]">
+
+                    <p className="text-slate-400">
+
+                        No complaint data available.
+
+                    </p>
+
+                </div>
+
+            ) : (
+
+                <div className="space-y-6">
+
+                    {categories.map((category) => (
+
+                        <div key={category.category}>
+
+                            <div className="flex justify-between mb-2">
+
+                                <span>
+
+                                    {category.category}
+
+                                </span>
+
+                                <span className="text-slate-400">
+
+                                    {category.count}
+
+                                </span>
+
+                            </div>
+
+                            <div className="w-full bg-slate-800 rounded-full h-4">
+
+                                <div
+                                    className="bg-violet-500 h-4 rounded-full transition-all duration-500"
+                                    style={{
+                                        width: `${(category.count / maxCount) * 100}%`
+                                    }}
+                                />
+
+                            </div>
+
+                        </div>
+
+                    ))}
+
+                </div>
+
+            )}
 
         </div>
 

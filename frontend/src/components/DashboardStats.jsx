@@ -1,12 +1,28 @@
+
 import { Sparkles } from "lucide-react";
 
-export default function DashboardStats() {
-
+export default function DashboardStats({ dashboard }) {
     const stats = [
-        { title: "Complaints", value: "1,248" },
-        { title: "Resolved", value: "81%" },
-        { title: "Active Alerts", value: "42" }
-    ];
+
+    {
+        title: "Complaints",
+        value: dashboard?.total ?? 0
+    },
+
+    {
+        title: "High Priority",
+        value: dashboard?.high_priority ?? 0
+    },
+
+    {
+        title: "Active",
+        value:
+            (dashboard?.high_priority ?? 0) +
+            (dashboard?.medium_priority ?? 0) +
+            (dashboard?.low_priority ?? 0)
+    }
+
+];
 
     return (
 
@@ -46,10 +62,11 @@ export default function DashboardStats() {
                 </h3>
 
                 <p className="mt-3 text-white/90">
-
-                    Road maintenance should be prioritized in Ward 4.
-
-                </p>
+    {dashboard.high_priority > 0
+        ? `${dashboard.high_priority} high priority complaints require immediate attention.`
+        : "No high priority complaints at the moment."
+    }
+</p>
 
             </div>
 

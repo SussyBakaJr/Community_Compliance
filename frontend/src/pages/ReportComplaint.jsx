@@ -7,11 +7,12 @@ export default function ReportComplaint() {
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState(null);
     const [error, setError] = useState("");
+    const [image, setImage] = useState(null);
 
     async function handleAnalyze() {
 
-        if (!complaint.trim()) {
-            alert("Please enter a complaint.");
+        if (!complaint.trim() && !image) {
+            alert("Please enter a complaint or upload an image.");
             return;
         }
 
@@ -21,7 +22,7 @@ export default function ReportComplaint() {
             setError("");
             setResult(null);
 
-            const response = await analyzeComplaint(complaint);
+            const response = await analyzeComplaint(complaint, image);
 
             setResult(response);
 
@@ -67,7 +68,20 @@ export default function ReportComplaint() {
                     className="w-full h-44 mt-10 rounded-2xl bg-slate-900 border border-slate-700 p-6 outline-none"
 
                 />
+                <div className="mt-6">
 
+    <label className="block mb-2 text-slate-300">
+        Upload an image (optional)
+    </label>
+
+    <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => setImage(e.target.files[0])}
+        className="block w-full text-slate-300"
+    />
+
+</div>
                 <button
 
                     onClick={handleAnalyze}
