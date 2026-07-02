@@ -1,5 +1,5 @@
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
-import { useState } from "react";
+import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from "react-leaflet";
+import { useEffect } from "react";
 import L from "leaflet";
 
 import "leaflet/dist/leaflet.css";
@@ -8,20 +8,21 @@ import "leaflet/dist/leaflet.css";
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
-    iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-    iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-    shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+    iconRetinaUrl:
+        "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+    iconUrl:
+        "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+    shadowUrl:
+        "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
 
-function LocationMarker({ onLocationSelect }) {
+function LocationMarker({ location, onLocationSelect }) {
 
-    const [position, setPosition] = useState(null);
+    const map = useMap();
 
     useMapEvents({
 
         click(e) {
-
-            setPosition(e.latlng);
 
             onLocationSelect(e.latlng);
 
@@ -29,11 +30,30 @@ function LocationMarker({ onLocationSelect }) {
 
     });
 
-    return position ? <Marker position={position} /> : null;
+    useEffect(() => {
+
+        if (location) {
+
+            map.flyTo(location, 16, {
+
+                animate: true
+
+            });
+
+        }
+
+    }, [location, map]);
+
+    return location ? <Marker position={location} /> : null;
 
 }
 
-export default function LocationPicker({ onLocationSelect }) {
+export default function LocationPicker({
+
+    location,
+    onLocationSelect
+
+}) {
 
     return (
 
@@ -45,12 +65,16 @@ export default function LocationPicker({ onLocationSelect }) {
         >
 
             <TileLayer
-                attribution='&copy; OpenStreetMap contributors'
+                attribution="&copy; OpenStreetMap contributors"
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
             <LocationMarker
+
+                location={location}
+
                 onLocationSelect={onLocationSelect}
+
             />
 
         </MapContainer>

@@ -50,7 +50,10 @@ def analyze():
         "summary": result["summary"],
         "confidence": result["confidence"],
         "estimated_response_time": result["estimated_response_time"],
-        "recommended_action": result["recommended_action"]
+        "recommended_action": result["recommended_action"],
+        "municipal_responsibility": result["municipal_responsibility"],
+        "appropriate_authority": result["appropriate_authority"],
+        "citizen_guidance": result["citizen_guidance"]
     })
 
     return jsonify(result)

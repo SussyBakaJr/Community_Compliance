@@ -40,7 +40,12 @@ def init_db():
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         status TEXT DEFAULT 'Pending',
         latitude REAL,
-        longitude REAL
+        longitude REAL,
+        municipal_responsibility INTEGER,
+
+appropriate_authority TEXT,
+
+citizen_guidance TEXT
 
     )
     """)
@@ -65,9 +70,12 @@ def save_complaint(data):
                 summary,
                 confidence,
                 estimated_response_time,
-                recommended_action
+                recommended_action,
+                municipal_responsibility,
+                appropriate_authority,
+                citizen_guidance
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
 
             data["complaint"],
@@ -80,7 +88,10 @@ def save_complaint(data):
             data["summary"],
             data["confidence"],
             data["estimated_response_time"],
-            data["recommended_action"]
+            data["recommended_action"],
+            data["municipal_responsibility"],
+            data["appropriate_authority"],
+            data["citizen_guidance"]
 
         ))
 

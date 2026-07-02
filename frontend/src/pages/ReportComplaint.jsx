@@ -9,6 +9,38 @@ export default function ReportComplaint() {
     const [error, setError] = useState("");
     const [image, setImage] = useState(null);
     const [location, setLocation] = useState(null);
+    function getCurrentLocation() {
+
+    if (!navigator.geolocation) {
+
+        alert("Geolocation is not supported by your browser.");
+
+        return;
+
+    }
+
+    navigator.geolocation.getCurrentPosition(
+
+        (position) => {
+
+            setLocation({
+
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+
+            });
+
+        },
+
+        () => {
+
+            alert("Unable to retrieve your location.");
+
+        }
+
+    );
+
+}
     async function handleAnalyze() {
 
         if (!complaint.trim() && !image) {
@@ -94,8 +126,20 @@ export default function ReportComplaint() {
         Select Complaint Location
 
     </h3>
+    <button
+
+    onClick={getCurrentLocation}
+
+    className="mb-4 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 transition"
+
+>
+
+    📍 Use My Current Location
+
+</button>
 
     <LocationPicker
+        location={location}
         onLocationSelect={setLocation}
     />
 
@@ -156,15 +200,22 @@ export default function ReportComplaint() {
 
                             <p><strong>Priority:</strong> {result.priority}</p>
 
-                            <p><strong>Department:</strong> {result.department}</p>
+                            <p><strong>Municipal Responsibility:</strong>{" "}{result.municipal_responsibility ? "✅ Yes" : "❌ No"}</p>
+
+                            <p><strong>Responsible Authority:</strong>{" "}{result.appropriate_authority}</p>
 
                             <p><strong>Summary:</strong> {result.summary}</p>
+                            <p><strong>Citizen Guidance:</strong>{" "}{result.citizen_guidance}</p>
+
+                            <p><strong>Recommended Action:</strong> {result.recommended_action}</p>
+                            <p><strong>Estimated Response:</strong> {result.estimated_response_time}</p>
 
                             <p><strong>Confidence:</strong> {result.confidence}</p>
 
-                            <p><strong>Estimated Response:</strong> {result.estimated_response_time}</p>
+                            
 
-                            <p><strong>Recommended Action:</strong> {result.recommended_action}</p>
+
+                            
 
                         </div>
 
