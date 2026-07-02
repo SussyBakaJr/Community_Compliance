@@ -54,3 +54,29 @@ export async function getComplaints() {
     return await response.json();
 
 }
+export async function updateComplaintStatus(id, status) {
+
+    const response = await fetch(
+        `${API_URL}/complaints/${id}/status`,
+        {
+            method: "PATCH",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                status
+            })
+        }
+    );
+
+    if (!response.ok) {
+
+        throw new Error("Failed to update status");
+
+    }
+
+    return await response.json();
+
+}

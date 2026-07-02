@@ -148,3 +148,19 @@ def get_dashboard_stats():
         "recent_complaints": recent,
         "categories": categories
     }
+def update_complaint_status(complaint_id, status):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        UPDATE complaints
+        SET status = ?
+        WHERE id = ?
+        """,
+        (status, complaint_id)
+    )
+
+    conn.commit()
+    conn.close()

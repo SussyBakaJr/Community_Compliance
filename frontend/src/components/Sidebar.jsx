@@ -4,6 +4,7 @@ import {
     BarChart3,
     Settings
 } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
@@ -63,6 +64,16 @@ export default function Sidebar() {
                     Complaint History
 
                 </NavLink>
+                <NavLink
+    to="/officer"
+    className={linkClass}
+>
+
+    <ShieldCheck size={20} />
+
+    Officer Dashboard
+
+</NavLink>
 
                 <button className="w-full flex items-center gap-3 rounded-xl hover:bg-slate-800 px-5 py-4">
 

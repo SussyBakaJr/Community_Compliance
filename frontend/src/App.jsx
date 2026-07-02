@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import ReportComplaint from "./pages/ReportComplaint";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
-
+import OfficerDashboard from "./pages/OfficerDashboard";
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +24,7 @@ function App() {
         <Route path="/about" element={<About />} />
 
         <Route path="/history" element={<ComplaintHistory />} />
+        <Route path="/officer" element={<OfficerDashboard />} />
       </Routes>
 
     </BrowserRouter>

@@ -6,7 +6,8 @@ from database.database import (
     init_db,
     save_complaint,
     get_all_complaints,
-    get_dashboard_stats
+    get_dashboard_stats,
+    update_complaint_status
 )
 
 app = Flask(__name__)
@@ -58,6 +59,18 @@ def analyze():
 def complaints():
 
     return jsonify(get_all_complaints())
+@app.route("/complaints/<int:complaint_id>/status", methods=["PATCH"])
+def update_status(complaint_id):
+
+    data = request.get_json()
+
+    status = data.get("status")
+
+    update_complaint_status(complaint_id, status)
+
+    return jsonify({
+        "message": "Status updated successfully"
+    })
 @app.route("/dashboard", methods=["GET"])
 def dashboard():
 
