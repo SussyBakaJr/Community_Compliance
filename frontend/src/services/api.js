@@ -7,7 +7,15 @@ export async function analyzeComplaint(
 ) {
 
     const formData = new FormData();
+    if (!complaint.trim() && !image) {
+    alert("Please enter a complaint or upload an image.");
+    return;
+}
 
+    if (!location) {
+    alert("Please select a complaint location on the map or use your current location.");
+    return;
+}
     formData.append("complaint", complaint);
     formData.append("latitude", location.lat);
     formData.append("longitude", location.lng);
