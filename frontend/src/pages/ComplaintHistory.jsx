@@ -1,4 +1,5 @@
 import Sidebar from "../components/Sidebar";
+import ComplaintList from "../components/ComplaintList";
 
 export default function ComplaintHistory() {
 
@@ -13,16 +14,18 @@ export default function ComplaintHistory() {
                 <div className="flex-1 p-8">
 
                     <h1 className="text-4xl font-bold">
-
                         Complaint History
-
                     </h1>
 
-                    <p className="text-slate-400 mt-2">
-
+                    <p className="mt-2 text-slate-400">
                         View all AI-analyzed complaints.
-
                     </p>
+
+                    <div className="mt-8">
+
+                        <ComplaintList editable={false} />
+
+                    </div>
 
                 </div>
 

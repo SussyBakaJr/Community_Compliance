@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
+from services.geocoding_service import reverse_geocode
 from services.gemini_service import analyze_complaint
 from database.database import (
     init_db,
@@ -38,11 +39,16 @@ def analyze():
 
     result = analyze_complaint(complaint, image)
     print(result)
+    if latitude and longitude:
+        address = reverse_geocode(latitude, longitude)
+    else:
+        address = None
     save_complaint({
 
         "complaint": complaint,
         "latitude": latitude,
         "longitude": longitude,
+        "address": address,
         "image_name": image.filename if image else None,
         "category": result["category"],
         "priority": result["priority"],

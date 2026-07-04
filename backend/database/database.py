@@ -41,6 +41,7 @@ def init_db():
         status TEXT DEFAULT 'Pending',
         latitude REAL,
         longitude REAL,
+        address TEXT,
         municipal_responsibility INTEGER,
 
 appropriate_authority TEXT,
@@ -65,6 +66,7 @@ def save_complaint(data):
                 category,
                 latitude,
                 longitude,
+                address,
                 priority,
                 department,
                 summary,
@@ -75,7 +77,7 @@ def save_complaint(data):
                 appropriate_authority,
                 citizen_guidance
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
 
             data["complaint"],
@@ -83,6 +85,7 @@ def save_complaint(data):
             data["category"],
             data["latitude"],
             data["longitude"],
+            data["address"],
             data["priority"],
             data["department"],
             data["summary"],
