@@ -20,30 +20,26 @@ export default function Hero() {
 
                     <h1 className="text-6xl xl:text-7xl font-black leading-[1.05] mt-8">
 
-    Smarter
+    Building
     <br />
 
-    Communities
+    Smarter
 
     <br />
 
     <span className="text-slate-300">
 
-        Start with
+        Communities
 
     </span>
 
     <br />
 
-    Better Decisions
-
 </h1>
 
                     <p className="mt-8 text-slate-400 text-lg leading-8 max-w-xl">
 
-                        Report issues, detect patterns,
-                        prioritize responses and empower
-                        local authorities using AI.
+                        Transform community complaints into actionable intelligence with AI-powered analysis, geospatial reporting, and real-time officer workflows.
 
                     </p>
 

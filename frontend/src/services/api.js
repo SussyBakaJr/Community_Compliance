@@ -88,3 +88,34 @@ export async function updateComplaintStatus(id, status) {
     return await response.json();
 
 }
+export async function officerLogin(officerId, password) {
+
+    const response = await fetch(
+        `${API_URL}/officer/login`,
+        {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+
+                officer_id: officerId,
+                password: password
+
+            })
+
+        }
+    );
+
+    if (!response.ok) {
+
+        throw new Error("Login failed");
+
+    }
+
+    return await response.json();
+
+}

@@ -2,15 +2,26 @@ import {
     LayoutDashboard,
     FileWarning,
     BarChart3,
-    Settings
+    LogOut,
+    ShieldCheck
 } from "lucide-react";
-import { ShieldCheck } from "lucide-react";
-import { NavLink } from "react-router-dom";
+
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
 
+    const navigate = useNavigate();
+
+    function logout() {
+
+        localStorage.removeItem("officer");
+
+        navigate("/officer-login");
+
+    }
+
     const linkClass = ({ isActive }) =>
-        `w-full flex items-center gap-3 rounded-xl px-5 py-4 transition-colors ${
+        `flex w-full items-center gap-3 rounded-xl px-5 py-4 transition-colors ${
             isActive
                 ? "bg-violet-600"
                 : "hover:bg-slate-800"
@@ -19,7 +30,6 @@ export default function Sidebar() {
     return (
 
         <aside className="w-72 min-h-screen border-r border-slate-800 bg-slate-900">
-
             <div className="p-8">
 
                 <h2 className="text-2xl font-bold">
@@ -30,60 +40,72 @@ export default function Sidebar() {
 
             </div>
 
-            <nav className="space-y-2 px-5">
+            <div className="flex h-[calc(100vh-90px)] flex-col px-5">
+                <nav className="space-y-2">
 
-                <NavLink
-                    to="/dashboard"
-                    className={linkClass}
-                >
+                    <NavLink
+                        to="/dashboard"
+                        className={linkClass}
+                    >
 
-                    <LayoutDashboard size={20} />
+                        <LayoutDashboard size={20} />
 
-                    Dashboard
+                        Dashboard
 
-                </NavLink>
+                    </NavLink>
 
-                <NavLink
-                    to="/report"
-                    className={linkClass}
-                >
+                    <NavLink
+                        to="/report"
+                        className={linkClass}
+                    >
 
-                    <FileWarning size={20} />
+                        <FileWarning size={20} />
 
-                    Report Complaint
+                        Report Complaint
 
-                </NavLink>
+                    </NavLink>
 
-                <NavLink
-                    to="/history"
-                    className={linkClass}
-                >
+                    <NavLink
+                        to="/history"
+                        className={linkClass}
+                    >
 
-                    <BarChart3 size={20} />
+                        <BarChart3 size={20} />
 
-                    Complaint History
+                        Complaint History
 
-                </NavLink>
-                <NavLink
-    to="/officer"
-    className={linkClass}
->
+                    </NavLink>
 
-    <ShieldCheck size={20} />
+                    <NavLink
+                        to="/officer-login"
+                        className={linkClass}
+                    >
 
-    Officer Dashboard
+                        <ShieldCheck size={20} />
 
-</NavLink>
+                        Officer Dashboard
 
-                <button className="w-full flex items-center gap-3 rounded-xl hover:bg-slate-800 px-5 py-4">
+                    </NavLink>
 
-                    <Settings size={20} />
+                </nav>
 
-                    Settings
+                {localStorage.getItem("officer") && (
 
-                </button>
+                    <button
 
-            </nav>
+                        onClick={logout}
+
+                         className="mt-auto mb-8 flex w-full items-center gap-3 rounded-xl px-5 py-4 text-red-400 hover:bg-red-500/10 transition">
+
+                        <LogOut size={20} />
+
+                        Logout
+
+                    </button>
+
+                )}
+
+            </div>
 
         </aside>
 

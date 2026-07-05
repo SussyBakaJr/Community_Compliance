@@ -19,8 +19,9 @@ export default function ComplaintCard({
     const [expanded, setExpanded] = useState(false);
 
     function priorityColor(priority) {
+        const value = priority?.trim();
 
-        switch (priority) {
+        switch (value) {
 
             case "Critical":
                 return "bg-red-600";
@@ -30,17 +31,22 @@ export default function ComplaintCard({
 
             case "Medium":
                 return "bg-yellow-500 text-black";
+            
+            case "Low":
+                return "bg-emerald-500 text-white";
+
 
             default:
-                return "bg-emerald-500";
+                return "bg-slate-600 text-white";
 
         }
 
     }
 
     function priorityBorder(priority) {
+        const value = priority?.trim();
 
-        switch (priority) {
+        switch (value) {
 
             case "Critical":
                 return "border-red-500";
@@ -51,8 +57,12 @@ export default function ComplaintCard({
             case "Medium":
                 return "border-yellow-500";
 
+            case "Low":
+                return "bg-emerald-500 text-white";
+
+
             default:
-                return "border-emerald-500";
+                return "bg-slate-600 text-white";
 
         }
 
@@ -78,10 +88,20 @@ export default function ComplaintCard({
     return (
 
         <div
-            className={`rounded-3xl bg-slate-900 border-l-4 ${priorityBorder(
-                complaint.priority
-            )} border-slate-800 p-6 hover:border-violet-500 transition-all`}
-        >
+    style={{
+        borderLeftWidth: "4px",
+        borderLeftStyle: "solid",
+        borderLeftColor:
+            complaint.priority === "Critical"
+                ? "#dc2626"
+                : complaint.priority === "High"
+                ? "#f97316"
+                : complaint.priority === "Medium"
+                ? "#eab308"
+                : "#10b981",
+    }}
+    className="rounded-3xl bg-slate-900 border border-slate-800 p-6 transition-all hover:border-violet-500"
+>
 
             <div className="flex justify-between gap-6 flex-wrap">
 

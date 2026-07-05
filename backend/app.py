@@ -84,6 +84,28 @@ def update_status(complaint_id):
 def dashboard():
 
     return jsonify(get_dashboard_stats())
+@app.route("/officer/login", methods=["POST"])
+def officer_login():
+
+    data = request.get_json()
+
+    officer_id = data.get("officer_id")
+    password = data.get("password")
+
+    if officer_id == "admin" and password == "community123":
+
+        return jsonify({
+
+            "success": True
+
+        })
+
+    return jsonify({
+
+        "success": False,
+        "message": "Invalid Officer ID or Password."
+
+    }), 401
 if __name__ == "__main__":
     init_db()
     app.run(debug=True)

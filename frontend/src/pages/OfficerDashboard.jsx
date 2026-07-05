@@ -1,20 +1,22 @@
-import Sidebar from "../components/Sidebar";
-import OfficerStats from "../components/OfficerStats";
+import OfficerSidebar from "../components/OfficerSidebar";
 import OfficerComplaintList from "../components/OfficerComplaintList";
 import CommunityMap from "../components/CommunityMap";
-
+import { Navigate } from "react-router-dom";
 export default function OfficerDashboard() {
+ if (!localStorage.getItem("officer")) {
 
+        return <Navigate to="/officer-login" replace />;
+
+    }
     return (
 
         <main className="min-h-screen bg-slate-950 text-white pt-15">
 
             <div className="flex">
 
-                <Sidebar />
+                <OfficerSidebar />
 
-                <div className="flex-1 p-8 space-y-8">
-
+                <div className="ml-72 flex-1 p-8 space-y-8">
                     <div>
 
                         <h1 className="text-4xl font-bold">
@@ -30,8 +32,6 @@ export default function OfficerDashboard() {
                         </p>
 
                     </div>
-
-                    <OfficerStats />
 
                     <OfficerComplaintList />
 
