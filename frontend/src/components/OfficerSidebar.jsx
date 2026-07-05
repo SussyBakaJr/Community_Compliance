@@ -31,9 +31,6 @@ export default function Sidebar() {
 
             <div className="p-8 border-b border-slate-800">
 
-                <h2 className="text-2xl font-bold">
-                    CommunityIQ
-                </h2>
 
                 <p className="mt-1 text-sm text-violet-400">
                     Officer Portal
@@ -55,27 +52,6 @@ export default function Sidebar() {
 
                 </NavLink>
 
-                <NavLink
-                    to="/report"
-                    className={linkClass}
-                >
-
-                    <FileWarning size={20} />
-
-                    Report Complaint
-
-                </NavLink>
-
-                <NavLink
-                    to="/history"
-                    className={linkClass}
-                >
-
-                    <BarChart3 size={20} />
-
-                    Complaint History
-
-                </NavLink>
 
             </nav>
 

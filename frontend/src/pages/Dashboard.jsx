@@ -3,8 +3,9 @@ import Sidebar from "../components/Sidebar";
 import DashboardStats from "../components/DashboardStats";
 import HeatmapCard from "../components/HeatmapCard";
 import AlertsCard from "../components/AlertsCard";
-import { getDashboardData } from "../services/api";
 import CommunityMap from "../components/CommunityMap";
+import { getDashboardData } from "../services/api";
+
 export default function Dashboard() {
 
     const [dashboardData, setDashboardData] = useState(null);
@@ -58,17 +59,25 @@ export default function Dashboard() {
 
                     <div className="grid lg:grid-cols-3 gap-8">
 
-    <div className="lg:col-span-2">
+                        {/* LEFT SIDE */}
 
-        <CommunityMap />
+                        <div className="lg:col-span-2 space-y-8">
 
-    </div>
+                            <CommunityMap />
 
-    <AlertsCard dashboard={dashboardData} />
+                            <HeatmapCard dashboard={dashboardData} />
 
-</div>
+                        </div>
 
-<HeatmapCard dashboard={dashboardData} />
+                        {/* RIGHT SIDE */}
+
+                        <div>
+
+                            <AlertsCard dashboard={dashboardData} />
+
+                        </div>
+
+                    </div>
 
                 </div>
 

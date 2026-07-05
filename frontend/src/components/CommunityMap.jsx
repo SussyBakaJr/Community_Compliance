@@ -14,11 +14,9 @@ import { getComplaints } from "../services/api";
 import redMarker from "../assets/markers/marker-red.png";
 import yellowMarker from "../assets/markers/marker-yellow.png";
 import greenMarker from "../assets/markers/marker-green.png";
-import shadow from "../assets/markers/marker-shadow.png";
 
 const redIcon = new L.Icon({
     iconUrl: redMarker,
-    shadowUrl: shadow,
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34]
@@ -26,7 +24,6 @@ const redIcon = new L.Icon({
 
 const yellowIcon = new L.Icon({
     iconUrl: yellowMarker,
-    shadowUrl: shadow,
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34]
@@ -34,7 +31,6 @@ const yellowIcon = new L.Icon({
 
 const greenIcon = new L.Icon({
     iconUrl: greenMarker,
-    shadowUrl: shadow,
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34]

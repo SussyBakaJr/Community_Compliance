@@ -1,10 +1,15 @@
+import dashboardImg from "../assets/dashboard.png";
+import officerDashboardImg from "../assets/officer_dashboard.png";
+
 import {
-    Map,
+    MapPinned,
     Bell,
     TriangleAlert,
     Sparkles,
     BarChart3,
-    Activity
+    Activity,
+    ArrowUpRight,
+    CheckCircle2
 } from "lucide-react";
 
 export default function DashboardPreview() {
@@ -27,10 +32,10 @@ export default function DashboardPreview() {
 
                 </h2>
 
-                <p className="text-slate-400 mt-6 max-w-3xl mx-auto">
+                <p className="text-slate-400 mt-6 max-w-3xl mx-auto leading-8">
 
                     Monitor complaints, identify hotspots and receive
-                    AI recommendations through an intelligent dashboard.
+                    AI-powered recommendations through a unified dashboard.
 
                 </p>
 
@@ -40,162 +45,218 @@ export default function DashboardPreview() {
 
                 <div className="grid grid-cols-12 gap-6">
 
-                    {/* KPI Cards */}
+                    {/* Stats */}
 
                     <div className="col-span-12 grid md:grid-cols-4 gap-5">
 
-                        <div className="rounded-2xl bg-slate-800 p-5">
+                        {[
+                            {
+                                title: "Complaints",
+                                value: "1,248",
+                                growth: "+18%"
+                            },
+                            {
+                                title: "Resolved",
+                                value: "81%",
+                                growth: "+9%"
+                            },
+                            {
+                                title: "Active Alerts",
+                                value: "42",
+                                growth: "+12%"
+                            }
+                        ].map((card) => (
 
-                            <p className="text-slate-400 text-sm">
+                            <div
+                                key={card.title}
+                                className="rounded-2xl border border-slate-800 bg-slate-800/80 p-6"
+                            >
 
-                                Complaints
+                                <p className="text-slate-400 text-sm">
 
-                            </p>
-
-                            <h3 className="text-3xl font-bold mt-2">
-
-                                1,248
-
-                            </h3>
-
-                        </div>
-
-                        <div className="rounded-2xl bg-slate-800 p-5">
-
-                            <p className="text-slate-400 text-sm">
-
-                                Resolved
-
-                            </p>
-
-                            <h3 className="text-3xl font-bold mt-2">
-
-                                81%
-
-                            </h3>
-
-                        </div>
-
-                        <div className="rounded-2xl bg-slate-800 p-5">
-
-                            <p className="text-slate-400 text-sm">
-
-                                Active Alerts
-
-                            </p>
-
-                            <h3 className="text-3xl font-bold mt-2">
-
-                                42
-
-                            </h3>
-
-                        </div>
-
-                        <div className="rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 p-5">
-
-                            <Sparkles className="mb-3"/>
-
-                            <p className="font-semibold">
-
-                                AI Insight
-
-                            </p>
-
-                            <p className="text-sm mt-2">
-
-                                Road maintenance should be prioritized in Ward 4.
-
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                    {/* Map */}
-
-                    <div className="col-span-12 lg:col-span-8 rounded-3xl bg-slate-800 h-[420px] relative overflow-hidden">
-
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#3b82f622_1px,transparent_1px)] bg-[length:28px_28px] opacity-40"></div>
-
-                        <div className="absolute top-20 left-24 w-4 h-4 bg-violet-400 rounded-full shadow-lg shadow-violet-500"></div>
-
-                        <div className="absolute top-48 left-72 w-4 h-4 bg-green-400 rounded-full shadow-lg shadow-green-500"></div>
-
-                        <div className="absolute bottom-24 right-28 w-4 h-4 bg-red-400 rounded-full shadow-lg shadow-red-500"></div>
-
-                        <div className="absolute top-32 left-28 w-48 h-[2px] bg-violet-400 rotate-12"></div>
-
-                        <div className="absolute bottom-36 left-72 w-56 h-[2px] bg-violet-400 -rotate-12"></div>
-
-                        <div className="absolute inset-0 flex items-center justify-center">
-
-                            <div className="text-center">
-
-                                <Map
-                                    size={60}
-                                    className="mx-auto text-violet-400"
-                                />
-
-                                <p className="mt-5 text-2xl font-semibold">
-
-                                    Smart Community Heatmap
+                                    {card.title}
 
                                 </p>
 
+                                <h3 className="mt-3 text-5xl font-bold bg-gradient-to-r from-violet-400 to-fuchsia-500 bg-clip-text text-transparent">
+
+                                    {card.value}
+
+                                </h3>
+
+                                <div className="mt-4 flex items-center gap-2">
+
+                                    <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-semibold text-emerald-400">
+
+                                        ↑ {card.growth}
+
+                                    </span>
+
+                                    <span className="text-xs text-slate-500">
+
+                                        this month
+
+                                    </span>
+
+                                </div>
+
                             </div>
+
+                        ))}
+
+                        <div className="rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-600 p-6">
+
+                            <Sparkles className="mb-4"/>
+
+                            <h3 className="font-semibold text-lg">
+
+                                AI Insight
+
+                            </h3>
+
+                            <p className="mt-3 text-sm text-violet-100 leading-6">
+
+                                Road maintenance should be prioritised
+                                near KIIT Gate 1 based on complaint density.
+
+                            </p>
 
                         </div>
 
                     </div>
 
-                    {/* AI Panel */}
+                    {/* AI Location Intelligence */}
+
+<div className="col-span-12 lg:col-span-8 rounded-3xl border border-slate-800 bg-slate-800 relative overflow-hidden p-10">
+
+    <div className="absolute -top-28 -left-28 h-72 w-72 rounded-full bg-violet-600/20 blur-3xl"></div>
+
+    <div className="absolute -bottom-20 -right-20 h-72 w-72 rounded-full bg-fuchsia-600/20 blur-3xl"></div>
+
+    <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
+
+        <MapPinned
+            size={90}
+            className="text-violet-400"
+        />
+
+        <h3 className="mt-8 text-4xl font-bold">
+
+            AI Location Intelligence
+
+        </h3>
+
+        <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-400">
+
+            Detect complaint hotspots, identify recurring patterns,
+            prioritize municipal response and visualize community
+            issues through AI-powered geospatial intelligence.
+
+        </p>
+
+        <div className="mt-10 flex flex-wrap justify-center gap-4">
+
+            <span className="rounded-full bg-violet-500/10 border border-violet-500/30 px-5 py-2 text-violet-300">
+
+                📍 GPS Enabled
+
+            </span>
+
+            <span className="rounded-full bg-sky-500/10 border border-sky-500/30 px-5 py-2 text-sky-300">
+
+                🗺️ Reverse Geocoding
+
+            </span>
+
+            <span className="rounded-full bg-emerald-500/10 border border-emerald-500/30 px-5 py-2 text-emerald-300">
+
+                ⚡ Smart Prioritization
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+                    {/* Right Panel */}
 
                     <div className="col-span-12 lg:col-span-4 space-y-5">
 
-                        <div className="rounded-2xl bg-slate-800 p-5">
+                        <div className="rounded-2xl border border-slate-800 bg-slate-800 p-5">
 
                             <div className="flex items-center gap-3">
 
                                 <Bell className="text-violet-400"/>
 
-                                <p>
+                                <div>
 
-                                    Water leakage detected
+                                    <p className="font-semibold">
 
-                                </p>
+                                        Water Leakage
+
+                                    </p>
+
+                                    <p className="text-sm text-slate-400">
+
+                                        KIIT Gate 3
+
+                                    </p>
+
+                                </div>
 
                             </div>
 
                         </div>
 
-                        <div className="rounded-2xl bg-slate-800 p-5">
+                        <div className="rounded-2xl border border-slate-800 bg-slate-800 p-5">
 
                             <div className="flex items-center gap-3">
 
                                 <TriangleAlert className="text-yellow-400"/>
 
-                                <p>
+                                <div>
 
-                                    High traffic near Ward 7
+                                    <p className="font-semibold">
 
-                                </p>
+                                        High Priority
+
+                                    </p>
+
+                                    <p className="text-sm text-slate-400">
+
+                                        12 unresolved complaints
+
+                                    </p>
+
+                                </div>
 
                             </div>
 
                         </div>
 
-                        <div className="rounded-2xl bg-slate-800 p-5">
+                        <div className="rounded-2xl border border-slate-800 bg-slate-800 p-5">
 
                             <div className="flex items-center gap-3">
 
-                                <Activity className="text-green-400"/>
+                                <Activity className="text-emerald-400"/>
 
-                                <p>
+                                <div>
 
-                                    Resolution rate increased 14%
+                                    <p className="font-semibold">
 
-                                </p>
+                                        Resolution Rate
+
+                                    </p>
+
+                                    <p className="text-sm text-slate-400">
+
+                                        Increased by 14%
+
+                                    </p>
+
+                                </div>
 
                             </div>
 
@@ -203,56 +264,72 @@ export default function DashboardPreview() {
 
                     </div>
 
-                    {/* Bottom Cards */}
+                    {/* Bottom */}
 
                     <div className="col-span-12 grid md:grid-cols-2 gap-6">
 
-                        <div className="rounded-2xl bg-slate-800 p-6 h-56 flex items-center justify-center">
+                        <div className="rounded-2xl border border-slate-800 bg-slate-800 p-6 h-56 flex flex-col justify-center">
 
-                            <div className="text-center">
+                            <BarChart3
+                                className="text-violet-400"
+                                size={60}
+                            />
 
-                                <BarChart3
-                                    size={60}
-                                    className="mx-auto text-violet-400"
-                                />
+                            <h3 className="mt-5 text-2xl font-semibold">
 
-                                <p className="mt-4">
-
-                                    Complaint Trends
-
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                        <div className="rounded-2xl bg-slate-800 p-6 h-56">
-
-                            <h3 className="font-semibold mb-5">
-
-                                Recent AI Decisions
+                                Complaint Analytics
 
                             </h3>
 
-                            <div className="space-y-4">
+                            <p className="mt-2 text-slate-400">
 
-                                <div className="rounded-xl bg-slate-700 p-3">
+                                AI tracks complaint trends,
+                                hotspots and department workload.
 
-                                    Prioritize Road Repair • Ward 4
+                            </p>
 
-                                </div>
+                        </div>
 
-                                <div className="rounded-xl bg-slate-700 p-3">
+                        <div className="rounded-2xl border border-slate-800 bg-slate-800 p-6">
 
-                                    Notify Water Department
+                            <h3 className="text-xl font-semibold">
 
-                                </div>
+                                Recent AI Actions
 
-                                <div className="rounded-xl bg-slate-700 p-3">
+                            </h3>
 
-                                    Merge Duplicate Complaints
+                            <div className="mt-6 space-y-4">
 
-                                </div>
+                                {[
+                                    "Road repair prioritised • KIIT Gate 1",
+                                    "Water Department notified",
+                                    "Duplicate complaints merged"
+                                ].map((item) => (
+
+                                    <div
+                                        key={item}
+                                        className="flex items-center justify-between rounded-xl bg-slate-700 p-4"
+                                    >
+
+                                        <div className="flex items-center gap-3">
+
+                                            <CheckCircle2
+                                                className="text-emerald-400"
+                                                size={18}
+                                            />
+
+                                            <span>{item}</span>
+
+                                        </div>
+
+                                        <ArrowUpRight
+                                            size={18}
+                                            className="text-slate-500"
+                                        />
+
+                                    </div>
+
+                                ))}
 
                             </div>
 
@@ -263,7 +340,71 @@ export default function DashboardPreview() {
                 </div>
 
             </div>
+            {/* Real Application Preview */}
 
+<div className="mt-24">
+
+    <div className="text-center mb-14">
+
+        <p className="uppercase tracking-[0.3em] text-violet-400 font-semibold">
+
+            REAL APPLICATION
+
+        </p>
+
+        <h2 className="text-5xl font-bold mt-5">
+
+            Built & Ready to Use
+
+        </h2>
+
+        <p className="text-slate-400 mt-5 max-w-3xl mx-auto leading-8">
+
+            CommunityIQ provides dedicated interfaces for both citizens
+            and municipal officers, enabling intelligent complaint
+            reporting, AI analysis and efficient issue management.
+
+        </p>
+
+    </div>
+
+    <div className="space-y-14">
+
+        <div>
+
+            <div className="inline-flex rounded-full bg-violet-500/20 px-5 py-2 text-violet-300 font-medium mb-5">
+
+                Citizen Dashboard
+
+            </div>
+
+            <img
+                src={dashboardImg}
+                alt="Citizen Dashboard"
+                className="w-full rounded-3xl border border-slate-800 shadow-2xl transition duration-500 hover:scale-[1.01]"
+            />
+
+        </div>
+
+        <div>
+
+            <div className="inline-flex rounded-full bg-emerald-500/20 px-5 py-2 text-emerald-300 font-medium mb-5">
+
+                Officer Dashboard
+
+            </div>
+
+            <img
+                src={officerDashboardImg}
+                alt="Officer Dashboard"
+                className="w-full rounded-3xl border border-slate-800 shadow-2xl transition duration-500 hover:scale-[1.01]"
+            />
+
+        </div>
+
+    </div>
+
+</div>
         </section>
 
     );

@@ -89,22 +89,6 @@ export default function Sidebar() {
 
                 </nav>
 
-                {localStorage.getItem("officer") && (
-
-                    <button
-
-                        onClick={logout}
-
-                         className="mt-auto mb-8 flex w-full items-center gap-3 rounded-xl px-5 py-4 text-red-400 hover:bg-red-500/10 transition">
-
-                        <LogOut size={20} />
-
-                        Logout
-
-                    </button>
-
-                )}
-
             </div>
 
         </aside>
