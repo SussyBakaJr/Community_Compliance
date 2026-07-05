@@ -10,7 +10,7 @@ export default function AISummaryCard() {
 
             <div className="relative rounded-[32px] border border-slate-800 bg-slate-900/70 backdrop-blur-xl p-8">
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-4">
 
                     <div className="bg-violet-600 p-3 rounded-xl">
 
@@ -20,15 +20,15 @@ export default function AISummaryCard() {
 
                     <div>
 
-                        <p className="text-white font-semibold">
+                        <h3 className="text-xl font-semibold">
 
-                            Decision Engine
+                            AI Decision Engine
 
-                        </p>
+                        </h3>
 
                         <p className="text-slate-400 text-sm">
 
-                             AI-powered Community Intelligence
+                            Real-time complaint intelligence & prioritization
 
                         </p>
 
@@ -38,38 +38,86 @@ export default function AISummaryCard() {
 
                 <div className="mt-8 space-y-5">
 
-                    <div className="rounded-xl bg-slate-800 p-4">
+                    <div className="rounded-xl bg-slate-800 p-4 flex items-center gap-3">
 
-                        🟢 128 complaints received today
+                        <span className="text-green-400 text-xl">●</span>
+
+                        <div>
+
+                            <p className="font-medium">
+
+                                128 complaints analyzed
+
+                            </p>
+
+                            <p className="text-sm text-slate-400">
+
+                                AI classified and assigned departments
+
+                            </p>
+
+                        </div>
 
                     </div>
 
-                    <div className="rounded-xl bg-slate-800 p-4">
+                    <div className="rounded-xl bg-slate-800 p-4 flex items-center gap-3">
 
-                        🚧 Potholes increasing in Ward 4
+                        <span className="text-yellow-400 text-xl">⚠</span>
+
+                        <div>
+
+                            <p className="font-medium">
+
+                                6 High Priority Issues
+
+                            </p>
+
+                            <p className="text-sm text-slate-400">
+
+                                Immediate attention required
+
+                            </p>
+
+                        </div>
 
                     </div>
 
-                    <div className="rounded-xl bg-slate-800 p-4">
+                    <div className="rounded-xl bg-slate-800 p-4 flex items-center gap-3">
 
-                        🚨 Water leakage reported by 37 residents
+                        <span className="text-blue-400 text-xl">📍</span>
+
+                        <div>
+
+                            <p className="font-medium">
+
+                                Hotspot Identified
+
+                            </p>
+
+                            <p className="text-sm text-slate-400">
+
+                                KIIT Gate 1 & Patia Main Road
+
+                            </p>
+
+                        </div>
 
                     </div>
 
-                    <div className="rounded-xl bg-gradient-to-br
-from-violet-500
-to-fuchsia-600 p-5">
+                    <div className="rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-purple-600 p-6">
 
-                        <p className="font-semibold">
+                        <p className="font-semibold text-lg">
 
-                            AI Recommendation
+                            🤖 AI Recommendation
 
                         </p>
 
-                        <p className="text-sm mt-2">
+                        <p className="mt-3 leading-7">
 
-                            Deploy road maintenance team first.
-                            Predicted impact: 81% complaint reduction.
+                            Prioritize road infrastructure repairs near KIIT Gate 1,
+                            followed by water supply maintenance in Ward 3.
+                            Estimated response time:
+                            <span className="font-semibold"> 24–48 hours.</span>
 
                         </p>
 

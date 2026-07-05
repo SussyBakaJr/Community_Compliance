@@ -13,8 +13,10 @@ export default function StatsSection() {
                 <h2 className="text-4xl font-bold text-white">
 
                     <CountUp.default
-                        end={12458}
+                        end={128}
                         duration={2}
+                        enableScrollSpy
+                        scrollSpyOnce
                     />
 
                     +
@@ -33,7 +35,14 @@ export default function StatsSection() {
 
                 <h2 className="text-4xl font-bold text-white">
 
-                    94%
+                   <CountUp.default
+                                end={94}
+                                duration={2}
+                                enableScrollSpy
+                                scrollSpyOnce
+                            />
+
+                            %
 
                 </h2>
 
@@ -49,7 +58,15 @@ export default function StatsSection() {
 
                 <h2 className="text-4xl font-bold text-white">
 
-                    2.1 hrs
+                    <CountUp.default
+                                end={10}
+                                decimals={1}
+                                duration={2}
+                                enableScrollSpy
+                                scrollSpyOnce
+                            />
+
+                            {" "}hrs
 
                 </h2>
 
@@ -65,7 +82,12 @@ export default function StatsSection() {
 
                 <h2 className="text-4xl font-bold text-white">
 
-                    38
+                     <CountUp.default
+                                end={12}
+                                duration={2}
+                                enableScrollSpy
+                                scrollSpyOnce
+                            />
 
                 </h2>
 

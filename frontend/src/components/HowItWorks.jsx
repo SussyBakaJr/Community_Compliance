@@ -1,11 +1,12 @@
 import {
     Upload,
     Sparkles,
-    MapPinned,
-    CheckCircle2
+    CheckCircle2,
+    MapPinned
 } from "lucide-react";
 
 export default function HowItWorks() {
+
     return (
 
         <section className="max-w-[1400px] mx-auto px-8 py-32">
@@ -13,7 +14,9 @@ export default function HowItWorks() {
             <div className="text-center">
 
                 <p className="uppercase tracking-[0.3em] text-violet-400 font-semibold">
+
                     HOW IT WORKS
+
                 </p>
 
                 <h2 className="text-5xl font-bold mt-4">
@@ -27,8 +30,9 @@ export default function HowItWorks() {
 
                 <p className="text-slate-400 mt-6 max-w-3xl mx-auto">
 
-                    CommunityIQ transforms citizen complaints into
-                    actionable intelligence for local authorities using AI.
+                    CommunityIQ uses AI to analyze citizen complaints,
+                    identify priorities, and recommend the best course of
+                    action for municipal authorities.
 
                 </p>
 
@@ -36,7 +40,7 @@ export default function HowItWorks() {
 
             <div className="grid lg:grid-cols-2 gap-10 mt-20">
 
-                {/* LEFT */}
+                {/* LEFT PANEL */}
 
                 <div className="rounded-3xl border border-slate-800 bg-slate-900/50 p-8">
 
@@ -48,36 +52,69 @@ export default function HowItWorks() {
 
                     <div className="space-y-5">
 
-                        <div className="rounded-xl bg-slate-800 p-4 flex items-center gap-4">
+                        <div className="rounded-xl bg-slate-800 p-4 flex justify-between items-center">
 
-                            <Upload className="text-violet-400"/>
+                            <div className="flex items-center gap-3">
 
-                            Upload Image
-                            PNG • JPG • HEIC
+                                <Upload className="text-violet-400"/>
 
-                        </div>
+                                road_damage.jpg
 
-                        <div className="rounded-xl bg-slate-800 p-4">
+                            </div>
 
-                            Category:
-                            <span className="text-slate-400">
-                                {" "}Road Damage
+                            <span className="text-green-400 text-sm font-medium">
+
+                                Uploaded ✓
+
                             </span>
 
                         </div>
 
                         <div className="rounded-xl bg-slate-800 p-4">
 
-                            Location:
-                            <span className="text-slate-400">
-                                {" "}Ward 4
-                            </span>
+                            <p className="text-sm text-slate-400">
+
+                                Category
+
+                            </p>
+
+                            <p className="font-medium mt-1">
+
+                                Roads & Infrastructure
+
+                            </p>
 
                         </div>
 
-                        <div className="rounded-xl bg-slate-800 p-4 h-28">
+                        <div className="rounded-xl bg-slate-800 p-4">
 
-                            Large pothole near the main junction...
+                            <div className="flex items-center gap-2">
+
+                                <MapPinned
+                                    size={18}
+                                    className="text-violet-400"
+                                />
+
+                                <span className="font-medium">
+
+                                    KIIT Gate 1, Patia
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div className="rounded-xl bg-slate-800 p-4 h-36">
+
+                            <p className="text-slate-300 leading-7">
+
+                                Large pothole near KIIT Gate 1 causing
+                                traffic congestion and creating a safety
+                                hazard for two-wheelers, especially during
+                                rainfall.
+
+                            </p>
 
                         </div>
 
@@ -85,7 +122,7 @@ export default function HowItWorks() {
 
                 </div>
 
-                {/* RIGHT */}
+                {/* RIGHT PANEL */}
 
                 <div className="rounded-3xl border border-slate-800 bg-slate-900/50 p-8">
 
@@ -103,35 +140,47 @@ export default function HowItWorks() {
 
                     <div className="space-y-5">
 
-                        <div className="rounded-xl bg-slate-800 p-5 flex justify-between">
+                        <div className="rounded-xl bg-slate-800 p-5 flex justify-between items-center">
 
-                            Severity
+                            <span>
 
-                            <span className="text-red-400">
+                                Severity
 
-                                High Priority 
+                            </span>
+
+                            <span className="rounded-full bg-red-500/20 px-3 py-1 text-red-400 text-sm font-medium">
+
+                                High
 
                             </span>
 
                         </div>
 
-                        <div className="rounded-xl bg-slate-800 p-5 flex justify-between">
-
-                            Similar Complaints
+                        <div className="rounded-xl bg-slate-800 p-5 flex justify-between items-center">
 
                             <span>
 
-                                23
+                                Similar Reports
+
+                            </span>
+
+                            <span className="text-slate-300">
+
+                                23 Nearby
 
                             </span>
 
                         </div>
 
-                        <div className="rounded-xl bg-slate-800 p-5 flex justify-between">
-
-                            Responsible Department
+                        <div className="rounded-xl bg-slate-800 p-5 flex justify-between items-center">
 
                             <span>
+
+                                Department
+
+                            </span>
+
+                            <span className="text-slate-300">
 
                                 Public Works
 
@@ -139,33 +188,57 @@ export default function HowItWorks() {
 
                         </div>
 
-                        <div className="rounded-xl bg-gradient-to-r
-from-violet-600
-to-fuchsia-500 border border-violet-500 p-6">
+                        <div className="rounded-2xl bg-gradient-to-r from-violet-600 via-fuchsia-500 to-purple-600 p-6">
 
                             <div className="flex gap-3">
 
-                                <CheckCircle2 className="text-violet-300"/>
+                                <CheckCircle2
+                                    className="text-white mt-1"
+                                />
 
-                                <div>
+                                <div className="flex-1">
 
-                                    <p className="font-semibold">
+                                    <p className="font-semibold text-lg">
 
                                         AI Recommendation
 
                                     </p>
 
-                                    <p className="text-slate-300 mt-2">
+                                    <p className="text-slate-100 mt-3 leading-7">
 
-                                        Deploy maintenance team today.
-
-Estimated complaint reduction:
-81%
-
-Confidence:
-94%
+                                        Dispatch a road maintenance team to
+                                        KIIT Gate 1 immediately. Install
+                                        temporary warning barricades and
+                                        schedule permanent repairs within
+                                        24–48 hours.
 
                                     </p>
+
+                                    <div className="mt-6">
+
+                                        <div className="flex justify-between text-sm mb-2">
+
+                                            <span>
+
+                                                AI Confidence
+
+                                            </span>
+
+                                            <span>
+
+                                                94%
+
+                                            </span>
+
+                                        </div>
+
+                                        <div className="h-2 rounded-full bg-white/20 overflow-hidden">
+
+                                            <div className="h-full w-[94%] rounded-full bg-white"></div>
+
+                                        </div>
+
+                                    </div>
 
                                 </div>
 
@@ -182,4 +255,5 @@ Confidence:
         </section>
 
     );
+
 }

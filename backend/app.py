@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-
+from flask import send_from_directory
 from services.geocoding_service import reverse_geocode
 from services.gemini_service import analyze_complaint
 from database.database import (
@@ -29,7 +29,20 @@ def analyze():
     longitude = request.form.get("longitude")
 
     image = request.files.get("image")
+    import os
+    from werkzeug.utils import secure_filename
 
+    UPLOAD_FOLDER = "uploads"
+
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+    image_name = None
+
+    if image and image.filename != "":
+
+        image_name = secure_filename(image.filename)
+
+        image.save(os.path.join(UPLOAD_FOLDER, image_name))
     print("Complaint:", complaint)
 
     if image:
@@ -49,9 +62,9 @@ def analyze():
         "latitude": latitude,
         "longitude": longitude,
         "address": address,
-        "image_name": image.filename if image else None,
-        "category": result["category"],
+        "image_name": image_name,
         "priority": result["priority"],
+        "category": result["category"],
         "department": result["department"],
         "summary": result["summary"],
         "confidence": result["confidence"],
@@ -106,6 +119,9 @@ def officer_login():
         "message": "Invalid Officer ID or Password."
 
     }), 401
+@app.route("/uploads/<filename>")
+def uploaded_file(filename):
+    return send_from_directory("uploads", filename)
 if __name__ == "__main__":
     init_db()
     app.run(debug=True)

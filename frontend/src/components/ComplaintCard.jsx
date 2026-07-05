@@ -103,9 +103,19 @@ export default function ComplaintCard({
     className="rounded-3xl bg-slate-900 border border-slate-800 p-6 transition-all hover:border-violet-500"
 >
 
-            <div className="flex justify-between gap-6 flex-wrap">
+            <div className="flex gap-6 flex-wrap">
 
-                <div className="flex-1">
+    {complaint.image_name && (
+
+        <img
+            src={`http://127.0.0.1:5000/uploads/${complaint.image_name}`}
+            alt="Complaint"
+            className="h-32 w-32 rounded-2xl object-cover border border-slate-700 flex-shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer"
+        />
+
+    )}
+
+    <div className="flex-1">
 
                     <div className="flex items-center gap-3 mb-4 flex-wrap">
 
