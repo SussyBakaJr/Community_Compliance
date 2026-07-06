@@ -60,6 +60,21 @@ export default function ComplaintList({ editable = false }) {
         }
 
     }
+    async function handleWithdraw(id) {
+
+    try {
+
+        await updateComplaintStatus(id, "Withdrawn");
+
+        loadComplaints();
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+}
 
     const filteredComplaints = useMemo(() => {
 
@@ -192,6 +207,7 @@ export default function ComplaintList({ editable = false }) {
                     <option>Pending</option>
                     <option>Assigned</option>
                     <option>Resolved</option>
+                    <option>Withdrawn</option>
 
                 </select>
 
@@ -252,6 +268,7 @@ export default function ComplaintList({ editable = false }) {
                             editable={editable}
 
                             onStatusChange={handleStatusChange}
+                            onWithdraw={handleWithdraw}
 
                         />
 

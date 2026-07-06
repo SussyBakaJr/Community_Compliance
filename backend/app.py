@@ -43,40 +43,43 @@ def analyze():
         image_name = secure_filename(image.filename)
 
         image.save(os.path.join(UPLOAD_FOLDER, image_name))
-    print("Complaint:", complaint)
 
-    if image:
-        print("Image received:", image.filename)
-    else:
-        print("No image uploaded.")
 
     result = analyze_complaint(complaint, image)
-    print(result)
     if latitude and longitude:
         address = reverse_geocode(latitude, longitude)
     else:
         address = None
-    save_complaint({
+    
+
+    return jsonify({
+
+        "analysis": result,
 
         "complaint": complaint,
+
         "latitude": latitude,
+
         "longitude": longitude,
+
         "address": address,
-        "image_name": image_name,
-        "priority": result["priority"],
-        "category": result["category"],
-        "department": result["department"],
-        "summary": result["summary"],
-        "confidence": result["confidence"],
-        "estimated_response_time": result["estimated_response_time"],
-        "recommended_action": result["recommended_action"],
-        "municipal_responsibility": result["municipal_responsibility"],
-        "appropriate_authority": result["appropriate_authority"],
-        "citizen_guidance": result["citizen_guidance"]
+
+        "image_name": image_name
+
     })
+@app.route("/submit", methods=["POST"])
+def submit():
 
-    return jsonify(result)
+    data = request.get_json()
 
+    save_complaint(data)
+
+    return jsonify({
+
+        "success": True,
+        "message": "Complaint submitted successfully."
+
+    })
 @app.route("/complaints", methods=["GET"])
 def complaints():
 
@@ -124,4 +127,4 @@ def uploaded_file(filename):
     return send_from_directory("uploads", filename)
 if __name__ == "__main__":
     init_db()
-    app.run(debug=True)
+    app.run()

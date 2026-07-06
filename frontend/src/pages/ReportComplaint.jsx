@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { analyzeComplaint } from "../services/api";
+import { analyzeComplaint, submitComplaint } from "../services/api";
 import LocationPicker from "../components/LocationPicker";
-export default function ReportComplaint() {
+import { useNavigate } from "react-router-dom";
 
-    const [complaint, setComplaint] = useState("");
+export default function ReportComplaint() {
     const [loading, setLoading] = useState(false);
+    const [complaint, setComplaint] = useState("");
     const [result, setResult] = useState(null);
     const [error, setError] = useState("");
     const [image, setImage] = useState(null);
     const [location, setLocation] = useState(null);
+    const navigate = useNavigate();
     function getCurrentLocation() {
 
     if (!navigator.geolocation) {
@@ -75,6 +77,52 @@ export default function ReportComplaint() {
         }
 
     }
+    async function handleSubmit() {
+
+    try {
+
+        await submitComplaint({
+
+            complaint: result.complaint,
+            latitude: result.latitude,
+            longitude: result.longitude,
+            address: result.address,
+            image_name: result.image_name,
+
+            category: result.analysis.category,
+            priority: result.analysis.priority,
+            department: result.analysis.department,
+            summary: result.analysis.summary,
+            confidence: result.analysis.confidence,
+            estimated_response_time:
+                result.analysis.estimated_response_time,
+            recommended_action:
+                result.analysis.recommended_action,
+            municipal_responsibility:
+                result.analysis.municipal_responsibility,
+            appropriate_authority:
+                result.analysis.appropriate_authority,
+            citizen_guidance:
+                result.analysis.citizen_guidance
+
+        });
+
+        alert("Complaint submitted successfully!");
+        navigate("/history");
+        setComplaint("");
+        setImage(null);
+        setLocation(null);
+        setResult(null);
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert("Submission failed.");
+
+    }
+
+}
 
     return (
 
@@ -173,6 +221,19 @@ export default function ReportComplaint() {
                     {loading ? "Analyzing..." : "Analyze Complaint"}
 
                 </button>
+                {result && (
+
+    <button
+        onClick={handleSubmit}
+        className="ml-4 mt-8 rounded-xl bg-green-600 px-8 py-4 hover:bg-green-700"
+
+    >
+
+        Submit Complaint
+
+    </button>
+
+)}
 
                 {error && (
 
@@ -196,21 +257,21 @@ export default function ReportComplaint() {
 
                         <div className="space-y-4">
 
-                            <p><strong>Category:</strong> {result.category}</p>
+                            <p><strong>Category:</strong> {result.analysis.category}</p>
 
-                            <p><strong>Priority:</strong> {result.priority}</p>
+                            <p><strong>Priority:</strong> {result.analysis.priority}</p>
 
-                            <p><strong>Municipal Responsibility:</strong>{" "}{result.municipal_responsibility ? "✅ Yes" : "❌ No"}</p>
+                            <p><strong>Municipal Responsibility:</strong>{" "}{result.analysis.municipal_responsibility ? "✅ Yes" : "❌ No"}</p>
 
-                            <p><strong>Responsible Authority:</strong>{" "}{result.appropriate_authority}</p>
+                            <p><strong>Responsible Authority:</strong>{" "}{result.analysis.appropriate_authority}</p>
 
-                            <p><strong>Summary:</strong> {result.summary}</p>
-                            <p><strong>Citizen Guidance:</strong>{" "}{result.citizen_guidance}</p>
+                            <p><strong>Summary:</strong> {result.analysis.summary}</p>
+                            <p><strong>Citizen Guidance:</strong>{" "}{result.analysis.citizen_guidance}</p>
 
-                            <p><strong>Recommended Action:</strong> {result.recommended_action}</p>
-                            <p><strong>Estimated Response:</strong> {result.estimated_response_time}</p>
+                            <p><strong>Recommended Action:</strong> {result.analysis.recommended_action}</p>
+                            <p><strong>Estimated Response:</strong> {result.analysis.estimated_response_time}</p>
 
-                            <p><strong>Confidence:</strong> {result.confidence}</p>
+                            <p><strong>Confidence:</strong> {result.analysis.confidence}</p>
 
                             
 

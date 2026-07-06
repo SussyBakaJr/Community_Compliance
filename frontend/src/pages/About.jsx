@@ -1,4 +1,4 @@
-import Sidebar from "../components/Sidebar";
+
 import {
     BrainCircuit,
     MapPinned,
@@ -14,11 +14,7 @@ export default function About() {
 
         <main className="min-h-screen bg-slate-950 text-white">
 
-            <div className="flex">
-
-                <Sidebar />
-
-                <div className="flex-1 p-8 pt-24 max-w-7xl mx-auto">
+                <div className="max-w-7xl mx-auto px-8 pt-24 pb-16">
 
                     {/* Hero */}
 
@@ -214,8 +210,6 @@ export default function About() {
                     </section>
 
                 </div>
-
-            </div>
 
         </main>
 

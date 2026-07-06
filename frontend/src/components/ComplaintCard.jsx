@@ -13,7 +13,8 @@ import { useState } from "react";
 export default function ComplaintCard({
     complaint,
     editable = false,
-    onStatusChange
+    onStatusChange,
+    onWithdraw
 }) {
 
     const [expanded, setExpanded] = useState(false);
@@ -77,6 +78,9 @@ export default function ComplaintCard({
 
             case "Assigned":
                 return "text-blue-400";
+            
+            case "Withdrawn":
+                return "text-red-400";
 
             default:
                 return "text-yellow-400";
@@ -225,7 +229,34 @@ export default function ComplaintCard({
                 )}
 
             </div>
+            {!editable &&
+ complaint.status === "Pending" && (
 
+    <button
+
+        onClick={() => {
+
+            if (
+                window.confirm(
+                    "Withdraw this complaint?"
+                )
+            ) {
+
+                onWithdraw(complaint.id);
+
+            }
+
+        }}
+
+        className="mt-6 mr-4 rounded-xl border border-red-500 px-4 py-2 text-red-400 hover:bg-red-500/10 transition"
+
+    >
+
+        Withdraw Complaint
+
+    </button>
+
+)}
             <button
 
                 onClick={() =>

@@ -22,8 +22,6 @@ def reverse_geocode(latitude, longitude):
             timeout=10
         )
 
-        print("Status:", response.status_code)
-        print("Body:", response.text[:300])
 
         if response.status_code == 429:
             print("Rate limited by Nominatim.")
@@ -34,7 +32,6 @@ def reverse_geocode(latitude, longitude):
 
         data = response.json()
 
-        print(data)
 
         return data.get("display_name")
 

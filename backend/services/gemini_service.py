@@ -154,7 +154,5 @@ Return exactly one JSON object in this format:
     elif text.startswith("```"):
         text = text.replace("```", "").strip()
 
-    print("Gemini raw response:")
-    print(text)
 
     return json.loads(text)
