@@ -1,4 +1,4 @@
-# CommunityIQ 🏙️🤖
+# CommunityIQ 
 
 An AI-powered Smart Community Complaint Management Platform that helps citizens report civic issues using text, images, and GPS locations while intelligently routing complaints to the appropriate authorities through multimodal AI.
 
@@ -193,16 +193,41 @@ npm run dev
 
 ---
 
-## 📸 Screenshots
+# 📸 Screenshots
 
-> *(To be added)*
+## Landing Page
 
-- Landing Page
-- Report Complaint
-- AI Analysis
-- Community Dashboard
-- Officer Dashboard
-- Interactive Map
+![Landing Page](screenshots/landing_page.png)
+
+---
+
+## Report Complaint
+
+![Report Complaint](screenshots/report_complaint.png)
+
+---
+
+## AI Analysis
+
+![AI Analysis](screenshots/ai_analysis.png)
+
+---
+
+## Citizen Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+---
+
+## Officer Dashboard
+
+![Officer Dashboard](screenshots/officer_dashboard.png)
+
+---
+
+## Complaint History
+
+![Complaint History](screenshots/complaint_history.png)
 
 ---
 
