@@ -19,7 +19,8 @@ export default function Navbar() {
 
                 <div className="flex items-center gap-3">
 
-                    <ShieldCheck className="text-violet-500" size={28}/>
+                    <ShieldCheck size={20} className="text-violet-400" />
+
 
                     <h1 className="text-white font-bold text-xl">
                         CommunityIQ
