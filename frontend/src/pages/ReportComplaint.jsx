@@ -2,6 +2,9 @@ import { useState } from "react";
 import { analyzeComplaint, submitComplaint } from "../services/api";
 import LocationPicker from "../components/LocationPicker";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "../context/ToastContext";
+import LoadingSkeleton from "../components/LoadingSkeleton";
+import ErrorState from "../components/ErrorState";
 
 export default function ReportComplaint() {
     const [loading, setLoading] = useState(false);
@@ -11,11 +14,12 @@ export default function ReportComplaint() {
     const [image, setImage] = useState(null);
     const [location, setLocation] = useState(null);
     const navigate = useNavigate();
+    const { showToast } = useToast();
     function getCurrentLocation() {
 
     if (!navigator.geolocation) {
 
-        alert("Geolocation is not supported by your browser.");
+        showToast("Geolocation is not supported by your browser.", "error");
 
         return;
 
@@ -36,7 +40,7 @@ export default function ReportComplaint() {
 
         () => {
 
-            alert("Unable to retrieve your location.");
+            showToast("Unable to retrieve your location.", "error");
 
         }
 
@@ -46,7 +50,7 @@ export default function ReportComplaint() {
     async function handleAnalyze() {
 
         if (!complaint.trim() && !image) {
-            alert("Please enter a complaint or upload an image.");
+            showToast("Please enter a complaint or upload an image.", "error");
             return;
         }
 
@@ -64,6 +68,7 @@ export default function ReportComplaint() {
 
 
             setResult(response);
+            showToast("AI analysis complete.", "success");
 
         } catch (err) {
 
@@ -107,7 +112,7 @@ export default function ReportComplaint() {
 
         });
 
-        alert("Complaint submitted successfully!");
+        showToast("Complaint submitted successfully!", "success");
         navigate("/history");
         setComplaint("");
         setImage(null);
@@ -235,15 +240,7 @@ export default function ReportComplaint() {
 
 )}
 
-                {error && (
-
-                    <p className="text-red-400 mt-6">
-
-                        {error}
-
-                    </p>
-
-                )}
+                {error && <ErrorState message={error} />}
 
                 {result && (
 

@@ -2,6 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import StatsCard from "./StatsCard";
 import ComplaintCard from "./ComplaintCard";
+import LoadingSkeleton from "./LoadingSkeleton";
+import ErrorState from "./ErrorState";
+import { useToast } from "../context/ToastContext";
 
 import {
     getComplaints,
@@ -12,32 +15,31 @@ export default function ComplaintList({ editable = false }) {
 
     const [complaints, setComplaints] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    const [error, setError] = useState("");
+    const { showToast } = useToast();
     const [search, setSearch] = useState("");
     const [statusFilter, setStatusFilter] = useState("All");
     const [priorityFilter, setPriorityFilter] = useState("All");
 
     async function loadComplaints() {
+    try {
+        setLoading(true);
+        setError("");
 
-        try {
+        const data = await getComplaints();
 
-            setLoading(true);
+        setComplaints(data);
+    } catch (err) {
+        console.error(err);
 
-            const data = await getComplaints();
+        const message = err?.message || "Unable to load complaints.";
 
-            setComplaints(data);
-
-        } catch (error) {
-
-            console.error(error);
-
-        } finally {
-
-            setLoading(false);
-
-        }
-
+        setError(message);
+        showToast(message, "error");
+    } finally {
+        setLoading(false);
     }
+}
 
     useEffect(() => {
 
@@ -50,11 +52,14 @@ export default function ComplaintList({ editable = false }) {
         try {
 
             await updateComplaintStatus(id, status, remarks);
+            showToast("Complaint updated successfully.", "success");
 
-            loadComplaints();
+            await loadComplaints();
 
         } catch (error) {
+            const message = error?.message || "Failed to update complaint.";
 
+            showToast(message, "error");
             console.error(error);
 
         }
@@ -65,11 +70,13 @@ export default function ComplaintList({ editable = false }) {
     try {
 
         await updateComplaintStatus(id, "Withdrawn");
+        showToast("Complaint withdrawn successfully.", "success");
 
-        loadComplaints();
+
+        await loadComplaints();
 
     } catch (error) {
-
+        const message = error?.message || "Failed to withdraw complaint.";
         console.error(error);
 
     }
@@ -122,15 +129,17 @@ export default function ComplaintList({ editable = false }) {
     };
 
 }, [complaints]);
-    if (loading) {
-
-        return (
-            <div className="text-center py-16 text-slate-400">
-                Loading complaints...
-            </div>
-        );
-
-    }
+if (loading) {
+    return <LoadingSkeleton lines={6} />;
+}
+if (error) {
+    return (
+        <ErrorState
+            message={error}
+            onRetry={loadComplaints}
+        />
+    );
+}
 
     return (
 

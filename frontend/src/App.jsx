@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastProvider } from "./context/ToastContext";
 
 import Navbar from "./components/Navbar";
 import ComplaintHistory from "./pages/ComplaintHistory";
@@ -14,52 +15,56 @@ import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <BrowserRouter>
+      <ToastProvider>
 
-      <Navbar />
+        <Navbar />
 
-      <Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-        <Route path="/" element={<Home />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-    path="/dashboard"
-    element={
-        <ProtectedRoute>
-            <Dashboard />
-        </ProtectedRoute>
-    }
-/>
+          <Route
+            path="/report"
+            element={
+              <ProtectedRoute>
+                <ReportComplaint />
+              </ProtectedRoute>
+            }
+          />
 
-<Route
-    path="/report"
-    element={
-        <ProtectedRoute>
-            <ReportComplaint />
-        </ProtectedRoute>
-    }
-/>
+          <Route
+            path="/history"
+            element={
+              <ProtectedRoute>
+                <ComplaintHistory />
+              </ProtectedRoute>
+            }
+          />
 
-<Route
-    path="/history"
-    element={
-        <ProtectedRoute>
-            <ComplaintHistory />
-        </ProtectedRoute>
-    }
-/>
-        <Route path="/about" element={<About />} />
-        <Route
-    path="/officer"
-    element={
-        <ProtectedRoute>
-            <OfficerDashboard />
-        </ProtectedRoute>
-    }
-/>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
+          <Route path="/about" element={<About />} />
 
+          <Route
+            path="/officer"
+            element={
+              <ProtectedRoute>
+                <OfficerDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+
+      </ToastProvider>
     </BrowserRouter>
   );
 }

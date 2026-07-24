@@ -2,3 +2,93 @@
 .leaflet-container {
     z-index: 1;
 }
+
+.toast {
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  z-index: 9999;
+  min-width: 280px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.16);
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  animation: toast-appear 0.22s ease-out;
+}
+
+.toast-info {
+  background: rgba(46, 125, 246, 0.92);
+}
+
+.toast-success {
+  background: rgba(34, 197, 94, 0.95);
+}
+
+.toast-error {
+  background: rgba(239, 68, 68, 0.92);
+}
+
+@keyframes toast-appear {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skeleton-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  padding: 18px;
+  display: grid;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.skeleton-line {
+  height: 14px;
+  width: 100%;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.18),
+    rgba(255, 255, 255, 0.08)
+  );
+  animation: skeleton-loading 1.2s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.error-state {
+  background: rgba(255, 69, 58, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 18px;
+  padding: 24px;
+  color: #f43f5e;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.error-state-label {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.error-state-message {
+  color: #b91c1c;
+  line-height: 1.5;
+}
