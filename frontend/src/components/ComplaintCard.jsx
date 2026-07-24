@@ -16,7 +16,10 @@ export default function ComplaintCard({
     onStatusChange,
     onWithdraw
 }) {
-
+    const [remarks, setRemarks] = useState(
+    complaint.officer_remarks || ""
+);
+const [status, setStatus] = useState(complaint.status);
     const [expanded, setExpanded] = useState(false);
 
     function priorityColor(priority) {
@@ -152,7 +155,17 @@ export default function ComplaintCard({
                         {complaint.complaint}
 
                     </p>
+                    {complaint.officer_remarks && (
+    <div className="mt-4 rounded-xl bg-slate-800 p-4 border border-slate-700">
+        <h3 className="text-sm font-semibold text-violet-400 mb-2">
+            Officer Remarks
+        </h3>
 
+        <p className="text-slate-300">
+            {complaint.officer_remarks}
+        </p>
+    </div>
+)}
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 text-sm text-slate-400">
 
                         <div className="flex items-center gap-2">
@@ -195,38 +208,66 @@ export default function ComplaintCard({
 
                 {editable && (
 
-                    <div className="min-w-[180px]">
+    <div className="min-w-[280px] space-y-4">
 
-                        <label className="block text-sm text-slate-400 mb-2">
+        <div>
 
-                            Status
+            <label className="block text-sm text-slate-400 mb-2">
+                Status
+            </label>
 
-                        </label>
+            <select
+    value={status}
+    onChange={(e) => setStatus(e.target.value)}
+    className="w-full rounded-xl bg-slate-800 px-4 py-3"
+>
 
-                        <select
+                <option>Pending</option>
+                <option>Assigned</option>
+                <option>In Progress</option>
+                <option>Resolved</option>
 
-                            value={complaint.status}
+            </select>
 
-                            onChange={(e) =>
-                                onStatusChange(
-                                    complaint.id,
-                                    e.target.value
-                                )
-                            }
+        </div>
 
-                            className="w-full rounded-xl bg-slate-800 px-4 py-3"
+        <div>
 
-                        >
+            <label className="block text-sm text-slate-400 mb-2">
+                Officer Remarks
+            </label>
 
-                            <option>Pending</option>
-                            <option>Assigned</option>
-                            <option>Resolved</option>
+            <textarea
+                rows={4}
+                value={remarks}
+                onChange={(e) =>
+                    setRemarks(e.target.value)
+                }
+                placeholder="Add remarks for the citizen..."
+                className="w-full rounded-xl bg-slate-800 px-4 py-3 resize-none"
+            />
 
-                        </select>
+        </div>
 
-                    </div>
+        <button
 
-                )}
+            onClick={() =>
+                onStatusChange(
+                    complaint.id,
+                    status,
+                    remarks
+                )
+            }
+
+            className="w-full rounded-xl bg-violet-600 py-3 hover:bg-violet-700 transition"
+
+        >
+            Save Changes
+        </button>
+
+    </div>
+
+)}
 
             </div>
             {!editable &&

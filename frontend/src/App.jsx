@@ -7,7 +7,10 @@ import ReportComplaint from "./pages/ReportComplaint";
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import OfficerDashboard from "./pages/OfficerDashboard";
-import OfficerLogin from "./pages/OfficerLogin";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 function App() {
   return (
     <BrowserRouter>
@@ -18,15 +21,43 @@ function App() {
 
         <Route path="/" element={<Home />} />
 
-        <Route path="/report" element={<ReportComplaint />} />
+        <Route
+    path="/dashboard"
+    element={
+        <ProtectedRoute>
+            <Dashboard />
+        </ProtectedRoute>
+    }
+/>
 
-        <Route path="/dashboard" element={<Dashboard />} />
+<Route
+    path="/report"
+    element={
+        <ProtectedRoute>
+            <ReportComplaint />
+        </ProtectedRoute>
+    }
+/>
 
+<Route
+    path="/history"
+    element={
+        <ProtectedRoute>
+            <ComplaintHistory />
+        </ProtectedRoute>
+    }
+/>
         <Route path="/about" element={<About />} />
-
-        <Route path="/history" element={<ComplaintHistory />} />
-        <Route path="/officer" element={<OfficerDashboard />} />
-        <Route path="/officer-login" element={<OfficerLogin />} />
+        <Route
+    path="/officer"
+    element={
+        <ProtectedRoute>
+            <OfficerDashboard />
+        </ProtectedRoute>
+    }
+/>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
 
     </BrowserRouter>

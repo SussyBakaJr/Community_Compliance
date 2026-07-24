@@ -1,4 +1,4 @@
-const API_URL = "https://communityiq.onrender.com";
+const API_URL = "http://127.0.0.1:5000";
 
 export async function analyzeComplaint(
     complaint,
@@ -62,7 +62,7 @@ export async function getComplaints() {
     return await response.json();
 
 }
-export async function updateComplaintStatus(id, status) {
+export async function updateComplaintStatus(id, status, remarks) {
 
     const response = await fetch(
         `${API_URL}/complaints/${id}/status`,
@@ -74,50 +74,17 @@ export async function updateComplaintStatus(id, status) {
             },
 
             body: JSON.stringify({
-                status
+                status,
+                remarks
             })
         }
     );
 
     if (!response.ok) {
-
         throw new Error("Failed to update status");
-
     }
 
     return await response.json();
-
-}
-export async function officerLogin(officerId, password) {
-
-    const response = await fetch(
-        `${API_URL}/officer/login`,
-        {
-
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-
-                officer_id: officerId,
-                password: password
-
-            })
-
-        }
-    );
-
-    if (!response.ok) {
-
-        throw new Error("Login failed");
-
-    }
-
-    return await response.json();
-
 }
 export async function submitComplaint(data) {
 
@@ -136,5 +103,47 @@ export async function submitComplaint(data) {
     });
 
     return response.json();
+
+}
+export async function registerUser(name, email, password) {
+
+    const response = await fetch(`${API_URL}/register`, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            name,
+            email,
+            password
+        })
+
+    });
+
+    return await response.json();
+
+}
+
+export async function loginUser(email, password) {
+
+    const response = await fetch(`${API_URL}/login`, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            email,
+            password
+        })
+
+    });
+
+    return await response.json();
 
 }

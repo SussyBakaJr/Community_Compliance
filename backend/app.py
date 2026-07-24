@@ -3,12 +3,16 @@ from flask_cors import CORS
 from flask import send_from_directory
 from services.geocoding_service import reverse_geocode
 from services.gemini_service import analyze_complaint
+from werkzeug.security import generate_password_hash, check_password_hash
 from database.database import (
     init_db,
     save_complaint,
     get_all_complaints,
     get_dashboard_stats,
-    update_complaint_status
+    update_complaint_status,
+    get_user_by_email,
+    create_user,
+    login_user
 )
 
 app = Flask(__name__)
@@ -80,6 +84,38 @@ def submit():
         "message": "Complaint submitted successfully."
 
     })
+@app.route("/register", methods=["POST"])
+def register():
+    data = request.get_json()
+
+    name = data.get("name")
+    email = data.get("email")
+    password = data.get("password")
+
+    if not name or not email or not password:
+        return jsonify({
+            "success": False,
+            "message": "All fields are required."
+        }), 400
+
+    # Check if email already exists
+    if get_user_by_email(email):
+        return jsonify({
+            "success": False,
+            "message": "Email already registered."
+        }), 409
+
+    # Hash password
+    password_hash = generate_password_hash(password)
+
+    # Create the user
+    create_user(name, email, password_hash)
+
+    return jsonify({
+        "success": True,
+        "message": "Registration successful."
+    }), 201
+
 @app.route("/complaints", methods=["GET"])
 def complaints():
 
@@ -88,13 +124,20 @@ def complaints():
 def update_status(complaint_id):
 
     data = request.get_json()
+    print("Received:", data)
 
     status = data.get("status")
+    remarks = data.get("remarks", "")
 
-    update_complaint_status(complaint_id, status)
+    update_complaint_status(
+        complaint_id,
+        status,
+        remarks
+    )
 
     return jsonify({
-        "message": "Status updated successfully"
+        "success": True,
+        "message": "Complaint updated successfully."
     })
 @app.route("/dashboard", methods=["GET"])
 def dashboard():
@@ -125,6 +168,47 @@ def officer_login():
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
     return send_from_directory("uploads", filename)
+
+@app.route("/login", methods=["POST"])
+def login():
+
+    data = request.get_json()
+
+    email = data.get("email")
+    password = data.get("password")
+
+    if not email or not password:
+        return jsonify({
+            "success": False,
+            "message": "Email and password are required."
+        }), 400
+
+    user = login_user(email)
+
+    if not user:
+        return jsonify({
+            "success": False,
+            "message": "Invalid email or password."
+        }), 401
+
+    if not check_password_hash(user["password_hash"], password):
+        return jsonify({
+            "success": False,
+            "message": "Invalid email or password."
+        }), 401
+
+    return jsonify({
+        "success": True,
+        "message": "Login successful.",
+        "user": {
+            "id": user["id"],
+            "name": user["name"],
+            "email": user["email"],
+            "role": user["role"]
+        }
+    }), 200
+    
+    
 if __name__ == "__main__":
     init_db()
     app.run()

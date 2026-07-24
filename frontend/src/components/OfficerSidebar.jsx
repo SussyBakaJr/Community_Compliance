@@ -1,20 +1,20 @@
 import {
     LayoutDashboard,
-    FileWarning,
-    BarChart3,
     LogOut
 } from "lucide-react";
 
 import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-export default function Sidebar() {
+export default function OfficerSidebar() {
 
     const navigate = useNavigate();
+    const { user, logout } = useAuth();
 
-    function logout() {
+    function handleLogout() {
 
-        localStorage.removeItem("officer");
-        navigate("/officer-login");
+        logout();
+        navigate("/login");
 
     }
 
@@ -31,6 +31,9 @@ export default function Sidebar() {
 
             <div className="p-8 border-b border-slate-800">
 
+                <h2 className="text-2xl font-bold">
+                    CommunityIQ
+                </h2>
 
                 <p className="mt-1 text-sm text-violet-400">
                     Officer Portal
@@ -45,32 +48,22 @@ export default function Sidebar() {
                     end
                     className={linkClass}
                 >
-
                     <LayoutDashboard size={20} />
-
                     Officer Dashboard
-
                 </NavLink>
-
 
             </nav>
 
-            {localStorage.getItem("officer") && (
+            {user && (
 
                 <div className="p-5 border-t border-slate-800">
 
                     <button
-
-                        onClick={logout}
-
+                        onClick={handleLogout}
                         className="flex w-full items-center gap-3 rounded-xl px-5 py-4 text-red-400 hover:bg-red-500/10 transition"
-
                     >
-
                         <LogOut size={20} />
-
                         Logout
-
                     </button>
 
                 </div>

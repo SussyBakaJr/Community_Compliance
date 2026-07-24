@@ -1,15 +1,47 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ShieldCheck } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 export default function Navbar() {
 
     const location = useLocation();
+    const navigate = useNavigate();
 
-    const links = [
-        { name: "Home", path: "/" },
-        { name: "Report", path: "/report" },
-        { name: "Dashboard", path: "/dashboard" },
-        { name: "About", path: "/about" }
-    ];
+    
+
+    const { user, logout } = useAuth();
+
+    let links = [];
+
+    if (!user) {
+
+        links = [
+            { name: "Home", path: "/" },
+            { name: "About", path: "/about" },
+            { name: "Login", path: "/login" },
+        ];
+
+    } else if (user.role === "citizen") {
+
+        links = [
+            { name: "Dashboard", path: "/dashboard" },
+            { name: "Report", path: "/report" },
+            { name: "History", path: "/history" }
+        ];
+
+    } else if (user.role === "officer") {
+
+        links = [
+            { name: "Officer Dashboard", path: "/officer" }
+        ];
+
+    }
+
+    function handleLogout() {
+
+    logout();
+    navigate("/login");
+
+}
 
     return (
 
@@ -19,8 +51,10 @@ export default function Navbar() {
 
                 <div className="flex items-center gap-3">
 
-                    <ShieldCheck size={20} className="text-violet-400" />
-
+                    <ShieldCheck
+                        size={20}
+                        className="text-violet-400"
+                    />
 
                     <h1 className="text-white font-bold text-xl">
                         CommunityIQ
@@ -28,25 +62,34 @@ export default function Navbar() {
 
                 </div>
 
-                <div className="flex gap-8">
+                <div className="flex items-center gap-8">
 
-                    {links.map((link)=>(
+                    {links.map((link) => (
 
                         <Link
                             key={link.path}
                             to={link.path}
                             className={`transition-all duration-200 hover:scale-105 ${
-                                location.pathname===link.path
-                                ? "text-blue-400"
-                                : "text-slate-300 hover:text-white"
+                                location.pathname === link.path
+                                    ? "text-blue-400"
+                                    : "text-slate-300 hover:text-white"
                             }`}
                         >
-
                             {link.name}
-
                         </Link>
 
                     ))}
+
+                    {user && (
+
+                        <button
+                            onClick={handleLogout}
+                            className="text-red-400 hover:text-red-300 transition"
+                        >
+                            Logout
+                        </button>
+
+                    )}
 
                 </div>
 

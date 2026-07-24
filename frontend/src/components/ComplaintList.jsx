@@ -45,11 +45,11 @@ export default function ComplaintList({ editable = false }) {
 
     }, []);
 
-    async function handleStatusChange(id, status) {
+    async function handleStatusChange(id, status, remarks) {
 
         try {
 
-            await updateComplaintStatus(id, status);
+            await updateComplaintStatus(id, status, remarks);
 
             loadComplaints();
 
